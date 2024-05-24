@@ -11,10 +11,10 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="424.0" prefWidth="640.0">
          <children>
-            <AnchorPane prefHeight="424.0" prefWidth="320.0" />
-            <AnchorPane layoutX="313.0" layoutY="5.0" prefHeight="424.0" prefWidth="320.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+            <AnchorPane prefHeight="426.0" prefWidth="320.0" styleClass="left-form" stylesheets="@loginDesign.css" />
+            <AnchorPane layoutX="320.0" layoutY="1.0" prefHeight="424.0" prefWidth="320.0" styleClass="right-form" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                <children>
                   <FontAwesomeIcon glyphName="USER" layoutX="140.0" layoutY="109.0" selectionEnd="1" size="4em" />
                   <Label layoutX="101.0" layoutY="127.0" text="Login Admin">
@@ -22,15 +22,16 @@
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="52.0" layoutY="182.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" />
-                  <PasswordField layoutX="52.0" layoutY="239.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
+                  <TextField layoutX="52.0" layoutY="182.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <PasswordField layoutX="52.0" layoutY="239.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
                   <Button layoutX="52.0" layoutY="298.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Login" />
                   <Button layoutX="274.0" layoutY="8.0" mnemonicParsing="false" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                      <graphic>
-                        <FontAwesomeIcon glyphName="CLOSE" size="1.2em" />
+                        <FontAwesomeIcon glyphName="CLOSE" size="1.2em" styleClass="close" />
                      </graphic>
                   </Button>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>
