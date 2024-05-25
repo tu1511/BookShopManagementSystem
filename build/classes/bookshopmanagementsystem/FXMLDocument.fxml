@@ -30,9 +30,9 @@
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="username" layoutX="52.0" layoutY="182.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <PasswordField fx:id="password" layoutX="52.0" layoutY="239.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <Button fx:id="loginBtn" layoutX="52.0" layoutY="298.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" />
+                  <TextField fx:id="username" layoutX="52.0" layoutY="182.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <PasswordField fx:id="password" layoutX="52.0" layoutY="239.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <Button fx:id="loginBtn" layoutX="52.0" layoutY="298.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" />
                   <Button fx:id="close" layoutX="284.0" layoutY="8.0" mnemonicParsing="false" onAction="#close" onMouseClicked="#close" prefHeight="29.0" prefWidth="34.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                      <graphic>
                         <FontAwesomeIcon glyphName="CLOSE" size="1.2em" styleClass="close" />

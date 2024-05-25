@@ -16,7 +16,7 @@ public class database {
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/book", "root", ""); // address, database username, database password
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3307/book?autoReconnect=true&useSSL=false", "root", ""); // address, database username, database password
             return connect;
         }catch(Exception e){e.printStackTrace();}
         return null; // LETS MAKE OUR DATABASE  : ) book is our database name : ) 
