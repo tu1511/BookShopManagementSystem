@@ -70,7 +70,7 @@
                            </font>
                         </Label>
                         <Line endX="82.0" fill="WHITE" layoutX="113.0" layoutY="174.0" startX="-100.0" stroke="WHITE" />
-                        <Button fx:id="dashboard_Btn" layoutX="15.0" layoutY="196.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Dashboard">
+                        <Button fx:id="dashboard_btn" layoutX="15.0" layoutY="196.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Dashboard">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -78,7 +78,7 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="DASHBOARD" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="AvailableBooks_Btn" layoutX="15.0" layoutY="236.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Available Books">
+                        <Button fx:id="availableBooks_btn" layoutX="15.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Available Books">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -86,7 +86,7 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="purchase_Btn" layoutX="15.0" layoutY="278.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Purchase">
+                        <Button fx:id="purchase_btn" layoutX="15.0" layoutY="278.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Purchase">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -94,7 +94,7 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="logout" layoutX="30.0" layoutY="558.0" mnemonicParsing="false" styleClass="sign-out" stylesheets="@dashboardDesign.css">
+                        <Button fx:id="logout" layoutX="30.0" layoutY="558.0" mnemonicParsing="false" onAction="#logout" styleClass="sign-out" stylesheets="@dashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon glyphName="SIGN_OUT" size="2em" />
                            </graphic>

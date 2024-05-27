@@ -257,6 +257,12 @@ public class dashboardController implements Initializable{
     
     private Image image;
     
+    
+    public void displayUsername(){
+        String user = getData.username;
+        user = user.substring(0, 1).toUpperCase() + user.substring(1);
+        username.setText(user);
+    }
    
     public void switchForm(ActionEvent event){
         
@@ -350,10 +356,10 @@ public class dashboardController implements Initializable{
         stage.setIconified(true);
     }
     
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//        displayUsername();
-//        
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        displayUsername();
+        
 //        dashboardAB();
 //        dashboardTI();
 //        dashboardTC();
@@ -368,11 +374,7 @@ public class dashboardController implements Initializable{
 //        purchaseShowCustomerListData();
 //        purchaseDisplayQTY();
 //        purchaseDisplayTotal();
-//        
-//    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+        
     }
     
 }
