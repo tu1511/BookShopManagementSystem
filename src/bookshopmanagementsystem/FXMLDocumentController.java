@@ -71,7 +71,7 @@ public class FXMLDocumentController implements Initializable {
                 if(result.next()){
                     // IF CORRECT USERNAME AND PASSWORD
                     
-//                    getData.username = username.getText();
+                    getData.username = username.getText();
                     
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");

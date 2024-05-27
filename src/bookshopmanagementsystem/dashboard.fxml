@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookshopmanagementsystem.dashboardController">
    <children>
       <AnchorPane fx:id="main_form" prefHeight="668.0" prefWidth="1177.0">
          <children>
@@ -36,14 +36,14 @@
                                     <Font name="Arial" size="15.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="1045.0" layoutY="3.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="53.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
+                              <Button fx:id="close" layoutX="1045.0" layoutY="3.0" mnemonicParsing="false" onAction="#close" prefHeight="31.0" prefWidth="53.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
                                  <graphic>
-                                    <FontAwesomeIcon fx:id="close" glyphName="CLOSE" size="1.2em" />
+                                    <FontAwesomeIcon glyphName="CLOSE" size="1.2em" />
                                  </graphic>
                               </Button>
-                              <Button layoutX="1070.0" layoutY="3.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="52.0" styleClass="minimize" stylesheets="@dashboardDesign.css">
+                              <Button fx:id="minimize" layoutX="1070.0" layoutY="3.0" mnemonicParsing="false" onAction="#minimize" prefHeight="31.0" prefWidth="52.0" styleClass="minimize" stylesheets="@dashboardDesign.css">
                                  <graphic>
-                                    <FontAwesomeIcon fx:id="minimize" glyphName="MINUS" size="1.2em" wrappingWidth="13.19999885559082" />
+                                    <FontAwesomeIcon glyphName="MINUS" size="1.2em" wrappingWidth="13.19999885559082" />
                                  </graphic>
                               </Button>
                            </children>
