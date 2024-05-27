@@ -257,6 +257,30 @@ public class dashboardController implements Initializable{
     
     private Image image;
     
+    public ObservableList<bookData> availableBooksListData(){
+        
+        ObservableList<bookData> listData = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM book";
+        
+        connect = database.connectDb();
+        
+        try{
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            bookData bookD;
+            
+            while(result.next()){
+                bookD = new bookData(result.getInt("book_id"), result.getString("title")
+                        , result.getString("author"), result.getString("genre")
+                        , result.getDate("pub_date"), result.getDouble("price")
+                        , result.getString("image"));
+                
+                listData.add(bookD);
+            }
+        }catch(Exception e){e.printStackTrace();}
+        return listData;
+    }
     
     public void displayUsername(){
         String user = getData.username;
