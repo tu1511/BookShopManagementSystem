@@ -222,14 +222,14 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <AnchorPane layoutX="90.0" layoutY="14.0" prefHeight="186.0" prefWidth="121.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane layoutX="90.0" layoutY="14.0" prefHeight="186.0" prefWidth="142.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
                                           <ImageView fx:id="availableBooks_imageView" fitHeight="157.0" fitWidth="142.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button fx:id="availableBooks_importBtn" layoutX="-1.0" layoutY="156.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="146.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Import">
+                                          <Button fx:id="availableBooks_importBtn" layoutX="-1.0" layoutY="156.0" mnemonicParsing="false" onAction="#avaialableBooksInsertImage" prefHeight="30.0" prefWidth="146.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Import">
                                              <font>
                                                 <Font name="Arial" size="15.0" />
                                              </font>
@@ -248,10 +248,10 @@
                                     <DatePicker fx:id="availableBooks_date" layoutX="112.0" layoutY="392.0" prefHeight="30.0" prefWidth="174.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="64.0" layoutY="436.0" text="Price:" />
                                     <TextField fx:id="availableBooks_price" layoutX="112.0" layoutY="436.0" promptText="\$0.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Button fx:id="availableBooks_addBtn" layoutX="40.0" layoutY="482.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
-                                    <Button fx:id="availableBooks_updateBtn" layoutX="179.0" layoutY="482.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
-                                    <Button fx:id="availableBooks_clearBtn" layoutX="40.0" layoutY="539.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
-                                    <Button fx:id="availableBooks_deleteBtn" layoutX="179.0" layoutY="539.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
+                                    <Button fx:id="availableBooks_addBtn" layoutX="40.0" layoutY="482.0" mnemonicParsing="false" onAction="#availableBooksAdd" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
+                                    <Button fx:id="availableBooks_updateBtn" layoutX="179.0" layoutY="482.0" mnemonicParsing="false" onAction="#availableBooksUpdate" prefHeight="40.0" prefWidth="110.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
+                                    <Button fx:id="availableBooks_clearBtn" layoutX="40.0" layoutY="539.0" mnemonicParsing="false" onAction="#availableBooksClear" prefHeight="40.0" prefWidth="110.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
+                                    <Button fx:id="availableBooks_deleteBtn" layoutX="179.0" layoutY="539.0" mnemonicParsing="false" onAction="#availableBooksDelete" prefHeight="40.0" prefWidth="110.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="361.0" layoutY="13.0" prefHeight="599.0" prefWidth="594.0" stylesheets="@dashboardDesign.css">
@@ -262,7 +262,7 @@
                                  <children>
                                     <TextField fx:id="availableBooks_search" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="271.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
                                     <FontAwesomeIcon fill="#979797" glyphName="SEARCH" layoutX="23.0" layoutY="38.0" selectionFill="#8a8a8a" size="1.2em" />
-                                    <TableView fx:id="availableBooks_tableView" layoutX="16.0" layoutY="66.0" prefHeight="519.0" prefWidth="563.0" stylesheets="@dashboardDesign.css">
+                                    <TableView fx:id="availableBooks_tableView" layoutX="16.0" layoutY="66.0" onMouseClicked="#availableBooksSelect" prefHeight="519.0" prefWidth="563.0" stylesheets="@dashboardDesign.css">
                                       <columns>
                                         <TableColumn fx:id="availableBooks_col_bookID" prefWidth="75.0" text="Book ID" />
                                         <TableColumn fx:id="availableBooks_col_bookTitle" prefWidth="129.0" text="Book Title" />

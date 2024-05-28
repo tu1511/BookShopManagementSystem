@@ -309,6 +309,55 @@ public class dashboardController implements Initializable{
         
     }
     
+    public void availableBooksDelete(){
+        
+        String sql = "DELETE FROM book WHERE book_id = '"
+                +availableBooks_bookID.getText()+"'";
+        
+        connect = database.connectDb();
+        
+        try{
+            Alert alert;
+            
+            if(availableBooks_bookID.getText().isEmpty()
+                    || availableBooks_bookTitle.getText().isEmpty()
+                    || availableBooks_author.getText().isEmpty()
+                    || availableBooks_genre.getText().isEmpty()
+                    || availableBooks_date.getValue() == null
+                    || availableBooks_price.getText().isEmpty()
+                    || getData.path == null || getData.path == ""){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            }else{
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to DELETE Book ID: " + availableBooks_bookID.getText() + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                
+                if(option.get().equals(ButtonType.OK)){
+                    statement = connect.createStatement();
+                    statement.executeUpdate(sql);
+                    
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successful Delete!");
+                    alert.showAndWait();
+                    
+                    // TO BE UPDATED THE TABLEVIEW 
+                    availableBooksShowListData();
+                    // CLEAR FIELDS
+                    availableBooksClear();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+        
+    }
+    
     public void availableBooksUpdate(){
         
         String uri = getData.path;
