@@ -506,6 +506,42 @@ public class dashboardController implements Initializable{
         availableBooks_imageView.setImage(image);
     }
     
+    public void availableBooksSearch(){
+        
+        FilteredList<bookData> filter = new FilteredList<>(availableBooksList, e -> true);
+        
+        availableBooks_search.textProperty().addListener((Observable, oldValue, newValue) ->{
+            
+            filter.setPredicate(predicateBookData -> {
+                
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                
+                String searchKey = newValue.toLowerCase();
+                
+                if(predicateBookData.getBookId().toString().contains(searchKey)){
+                    return true;
+                }else if(predicateBookData.getTitle().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if(predicateBookData.getAuthor().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if(predicateBookData.getGenre().toLowerCase().contains(searchKey)){
+                    return true;
+                }else if(predicateBookData.getDate().toString().contains(searchKey)){
+                    return true;
+                }else if(predicateBookData.getPrice().toString().contains(searchKey)){
+                    return true;
+                }else return false;
+            });
+        });
+        
+        SortedList<bookData> sortList = new SortedList(filter);
+        sortList.comparatorProperty().bind(availableBooks_tableView.comparatorProperty());
+        availableBooks_tableView.setItems(sortList);
+        
+    }
+    
     public void displayUsername(){
         String user = getData.username;
         user = user.substring(0, 1).toUpperCase() + user.substring(1);
@@ -535,7 +571,7 @@ public class dashboardController implements Initializable{
             purchase_btn.setStyle("-fx-background-color: transparent");
             
             availableBooksShowListData();
-//            availableBooksSeach();
+            availableBooksSearch();
             
         }else if(event.getSource() == purchase_btn){
             dashboard_form.setVisible(false);

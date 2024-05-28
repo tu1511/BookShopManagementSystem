@@ -260,7 +260,7 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TextField fx:id="availableBooks_search" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="271.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="availableBooks_search" layoutX="14.0" layoutY="14.0" onKeyTyped="#availableBooksSearch" prefHeight="38.0" prefWidth="271.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
                                     <FontAwesomeIcon fill="#979797" glyphName="SEARCH" layoutX="23.0" layoutY="38.0" selectionFill="#8a8a8a" size="1.2em" />
                                     <TableView fx:id="availableBooks_tableView" layoutX="16.0" layoutY="66.0" onMouseClicked="#availableBooksSelect" prefHeight="519.0" prefWidth="563.0" stylesheets="@dashboardDesign.css">
                                       <columns>
