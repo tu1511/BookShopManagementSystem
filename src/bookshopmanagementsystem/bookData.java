@@ -19,7 +19,7 @@ public class bookData {
     private Date date;
     private Double price;
     private String image;
-    // MAKE SURE YOU FOLLOWED THE PARAMETERS THAT I PUT
+
     public bookData(Integer bookId, String title, String author, String genre
             , Date date, Double price, String image){
         this.bookId = bookId;

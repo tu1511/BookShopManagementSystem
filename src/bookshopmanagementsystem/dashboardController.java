@@ -137,25 +137,25 @@ public class dashboardController implements Initializable{
     private TextField availableBooks_search;
 
     @FXML
-    private TableView<?> availableBooks_tableView;
+    private TableView<bookData> availableBooks_tableView;
 
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_bookID;
-//
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_bookTItle;
-//
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_author;
-//
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_genre;
-//
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_date;
-//
-//    @FXML
-//    private TableColumn<bookData, String> availableBooks_col_price;
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_bookID;
+
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_bookTitle;
+
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_author;
+
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_genre;
+
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_date;
+
+    @FXML
+    private TableColumn<bookData, String> availableBooks_col_price;
 
     @FXML
     private AnchorPane purchase_form;
@@ -213,23 +213,6 @@ public class dashboardController implements Initializable{
 //
 //    @FXML
 //    private TableColumn<customerData, String> purchase_col_price;
-     @FXML
-    private TableColumn<?, ?> availableBooks_col_author;
-
-    @FXML
-    private TableColumn<?, ?> availableBooks_col_bookID;
-
-    @FXML
-    private TableColumn<?, ?> availableBooks_col_bookTitle;
-
-    @FXML
-    private TableColumn<?, ?> availableBooks_col_date;
-
-    @FXML
-    private TableColumn<?, ?> availableBooks_col_genre;
-
-    @FXML
-    private TableColumn<?, ?> availableBooks_col_price;
 
 
     @FXML
@@ -257,6 +240,162 @@ public class dashboardController implements Initializable{
     
     private Image image;
     
+    public void availableBooksAdd(){
+        
+        String sql = "INSERT INTO book (book_id, title, author, genre, pub_date, price, image) "
+                + "VALUES(?,?,?,?,?,?,?)";
+       
+        connect = database.connectDb();
+        
+        try{
+            Alert alert;
+            
+            if(availableBooks_bookID.getText().isEmpty()
+                    || availableBooks_bookTitle.getText().isEmpty()
+                    || availableBooks_author.getText().isEmpty()
+                    || availableBooks_genre.getText().isEmpty()
+                    || availableBooks_date.getValue() == null
+                    || availableBooks_price.getText().isEmpty()
+                    || getData.path == null || getData.path == ""){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            }else{
+                // CHECK IF BOOK ID IS ALREADY EXIST
+                String checkData = "SELECT book_id FROM book WHERE book_id = '"
+                        +availableBooks_bookID.getText()+"'";
+                
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkData);
+                
+                if(result.next()){
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Book ID: " + availableBooks_bookID.getText() + " was already exist!");
+                    alert.showAndWait();
+                }else{
+                    
+                    prepare = connect.prepareStatement(sql);
+                    prepare.setString(1, availableBooks_bookID.getText());
+                    prepare.setString(2, availableBooks_bookTitle.getText());
+                    prepare.setString(3, availableBooks_author.getText());
+                    prepare.setString(4, availableBooks_genre.getText());
+                    prepare.setString(5, String.valueOf(availableBooks_date.getValue()));
+                    prepare.setString(6, availableBooks_price.getText());
+
+                    String uri = getData.path;
+                    uri = uri.replace("\\", "\\\\");
+
+                    prepare.setString(7, uri);
+                    
+                    prepare.executeUpdate();
+                    
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+                    
+                    // TO BE UPDATED THE TABLEVIEW 
+                    availableBooksShowListData();
+                    // CLEAR FIELDS
+                    availableBooksClear();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+        
+    }
+    
+    public void availableBooksUpdate(){
+        
+        String uri = getData.path;
+        uri = uri.replace("\\", "\\\\");
+        
+        String sql = "UPDATE book SET title = '"
+                +availableBooks_bookTitle.getText()+"', author = '"
+                +availableBooks_author.getText()+"', genre = '"
+                +availableBooks_genre.getText()+"', pub_date = '"
+                +availableBooks_date.getValue()+"', price = '"
+                +availableBooks_price.getText()+"', image = '"
+                +uri+"' WHERE book_id = '"+availableBooks_bookID.getText()+"'";
+        
+        connect = database.connectDb();
+        
+        try{
+            Alert alert;
+            
+            if(availableBooks_bookID.getText().isEmpty()
+                    || availableBooks_bookTitle.getText().isEmpty()
+                    || availableBooks_author.getText().isEmpty()
+                    || availableBooks_genre.getText().isEmpty()
+                    || availableBooks_date.getValue() == null
+                    || availableBooks_price.getText().isEmpty()
+                    || getData.path == null || getData.path == ""){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            }else{
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to UPDATE Book ID: " + availableBooks_bookID.getText() + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                
+                if(option.get().equals(ButtonType.OK)){
+                    statement = connect.createStatement();
+                    statement.executeUpdate(sql);
+                    
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successful Updated!");
+                    alert.showAndWait();
+                    
+                    // TO BE UPDATED THE TABLEVIEW 
+                    availableBooksShowListData();
+                    // CLEAR FIELDS
+                    availableBooksClear();
+                }
+            }
+        }catch(Exception e){e.printStackTrace();}
+        
+    }
+    
+    public void availableBooksClear(){
+        availableBooks_bookID.setText("");
+        availableBooks_bookTitle.setText("");
+        availableBooks_author.setText("");
+        availableBooks_genre.setText("");
+        availableBooks_date.setValue(null);
+        availableBooks_price.setText("");
+        
+        getData.path = "";
+        
+        availableBooks_imageView.setImage(null);
+    }
+    
+    public void avaialableBooksInsertImage(){
+        
+        FileChooser open = new FileChooser();
+        open.setTitle("Open Image File");
+        open.getExtensionFilters().add(new ExtensionFilter("File Image", "*jpg", "*png"));
+        
+        File file = open.showOpenDialog(main_form.getScene().getWindow());
+        
+        if(file != null){
+            getData.path = file.getAbsolutePath();
+            
+            image = new Image(file.toURI().toString(), 142, 157, false, true);
+            availableBooks_imageView.setImage(image);
+        }
+        
+    }
+    
     public ObservableList<bookData> availableBooksListData(){
         
         ObservableList<bookData> listData = FXCollections.observableArrayList();
@@ -280,6 +419,42 @@ public class dashboardController implements Initializable{
             }
         }catch(Exception e){e.printStackTrace();}
         return listData;
+    }
+    
+    private ObservableList<bookData> availableBooksList;
+    public void availableBooksShowListData(){
+        availableBooksList = availableBooksListData();
+        
+        availableBooks_col_bookID.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        availableBooks_col_bookTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        availableBooks_col_author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        availableBooks_col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        availableBooks_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        availableBooks_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        availableBooks_tableView.setItems(availableBooksList);
+    }
+    
+    public void availableBooksSelect(){
+        bookData bookD = availableBooks_tableView.getSelectionModel().getSelectedItem();
+        int num = availableBooks_tableView.getSelectionModel().getSelectedIndex();
+        
+        if((num - 1) < -1){ return; }
+        
+        availableBooks_bookID.setText(String.valueOf(bookD.getBookId()));
+        availableBooks_bookTitle.setText(bookD.getTitle());
+        availableBooks_author.setText(bookD.getAuthor());
+        availableBooks_genre.setText(bookD.getGenre());
+        availableBooks_date.setValue(LocalDate.parse(String.valueOf(bookD.getDate())));
+        availableBooks_price.setText(String.valueOf(bookD.getPrice()));
+        
+        getData.path = bookD.getImage();
+        
+        String uri = "file:" + bookD.getImage();
+        
+        image = new Image(uri, 142, 157, false, true);
+        
+        availableBooks_imageView.setImage(image);
     }
     
     public void displayUsername(){
@@ -310,7 +485,7 @@ public class dashboardController implements Initializable{
             dashboard_btn.setStyle("-fx-background-color: transparent");
             purchase_btn.setStyle("-fx-background-color: transparent");
             
-//            availableBooksShowListData();
+            availableBooksShowListData();
 //            availableBooksSeach();
             
         }else if(event.getSource() == purchase_btn){
@@ -391,7 +566,7 @@ public class dashboardController implements Initializable{
 //        dashboardCustomerChart();
 //        
 //        // TO SHOW THE DATA ON TABLEVIEW (AVAILABLE BOOKS)
-//        availableBooksShowListData();
+        availableBooksShowListData();
 //        
 //        purchaseBookId();
 //        purchaseBookTitle();
