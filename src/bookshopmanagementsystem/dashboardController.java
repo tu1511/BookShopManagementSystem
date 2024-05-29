@@ -626,7 +626,37 @@ public class dashboardController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
+    
+    public ObservableList<customerData> purchaseListData(){
+//        purchasecustomerId();
+        String sql = "SELECT * FROM customer WHERE customer_id = '"+customerId+"'";
+        
+        ObservableList<customerData> listData = FXCollections.observableArrayList();
+        
+        connect = database.connectDb();
+        
+        try{
+            prepare  = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            customerData customerD;
+            
+            while(result.next()){
+                customerD = new customerData(result.getInt("customer_id")
+                        , result.getInt("book_id")
+                        , result.getString("title")
+                        , result.getString("author")
+                        , result.getString("genre")
+                        , result.getInt("quantity")
+                        , result.getDouble("price")
+                        , result.getDate("date"));
+                
+                listData.add(customerD);
+            }
+            
+        }catch(Exception e){e.printStackTrace();}
+        return listData;
     }
     
     public void displayUsername(){
