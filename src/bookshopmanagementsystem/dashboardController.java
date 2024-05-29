@@ -176,7 +176,7 @@ public class dashboardController implements Initializable{
     private Label purchase_info_bookID;
 
     @FXML
-    private Label purchase_info_bookTItle;
+    private Label purchase_info_bookTitle;
 
     @FXML
     private Label purchase_info_author;
@@ -542,6 +542,93 @@ public class dashboardController implements Initializable{
         
     }
     
+    public void purchaseBookId() {
+
+        String sql = "SELECT book_id FROM book";
+
+        connect = database.connectDb();
+
+        try {
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            ObservableList listData = FXCollections.observableArrayList();
+
+            while (result.next()) {
+                listData.add(result.getString("book_id"));
+            }
+
+            purchase_bookID.setItems(listData);
+            purchaseBookTitle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void purchaseBookTitle() {
+
+        String sql = "SELECT book_id, title FROM book WHERE book_id = '"
+                + purchase_bookID.getSelectionModel().getSelectedItem() + "'";
+
+        connect = database.connectDb();
+
+        try {
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            ObservableList listData = FXCollections.observableArrayList();
+
+            while (result.next()) {
+                listData.add(result.getString("title"));
+            }
+
+            purchase_bookTitle.setItems(listData);
+
+            purchaseBookInfo();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void purchaseBookInfo() {
+
+        String sql = "SELECT * FROM book WHERE title = '"
+                + purchase_bookTitle.getSelectionModel().getSelectedItem() + "'";
+
+        connect = database.connectDb();
+
+        String bookId = "";
+        String title = "";
+        String author = "";
+        String genre = "";
+        String date = "";
+
+        try {
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            if (result.next()) {
+                bookId = result.getString("book_id");
+                title = result.getString("title");
+                author = result.getString("author");
+                genre = result.getString("genre");
+                date = result.getString("pub_date");
+            }
+
+            purchase_info_bookID.setText(bookId);
+            purchase_info_bookTitle.setText(title);
+            purchase_info_author.setText(author);
+            purchase_info_genre.setText(genre);
+            purchase_info_date.setText(date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
     public void displayUsername(){
         String user = getData.username;
         user = user.substring(0, 1).toUpperCase() + user.substring(1);
@@ -559,7 +646,11 @@ public class dashboardController implements Initializable{
             availableBooks_btn.setStyle("-fx-background-color: transparent");
             purchase_btn.setStyle("-fx-background-color: transparent");
             
-           
+//           dashboardAB();
+//            dashboardTI();
+//            dashboardTC();
+//            dashboardIncomeChart();
+//            dashboardCustomerChart();
             
         }else if(event.getSource() == availableBooks_btn){
             dashboard_form.setVisible(false);
@@ -582,7 +673,11 @@ public class dashboardController implements Initializable{
             availableBooks_btn.setStyle("-fx-background-color: transparent");
             dashboard_btn.setStyle("-fx-background-color: transparent");
             
- 
+            purchaseBookTitle();
+            purchaseBookId();
+//            purchaseShowCustomerListData();
+//            purchaseDisplayQTY();
+//            purchaseDisplayTotal();
             
         }
     }
@@ -652,9 +747,9 @@ public class dashboardController implements Initializable{
 //        
 //        // TO SHOW THE DATA ON TABLEVIEW (AVAILABLE BOOKS)
         availableBooksShowListData();
-//        
-//        purchaseBookId();
-//        purchaseBookTitle();
+        
+        purchaseBookId();
+        purchaseBookTitle();
 //        purchaseShowCustomerListData();
 //        purchaseDisplayQTY();
 //        purchaseDisplayTotal();

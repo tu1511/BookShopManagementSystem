@@ -214,7 +214,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="availableBooks_form" prefHeight="624.0" prefWidth="969.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="availableBooks_form" prefHeight="624.0" prefWidth="969.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="599.0" prefWidth="325.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -283,7 +283,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="purchase_form" layoutX="80.0" layoutY="48.0" prefHeight="624.0" prefWidth="968.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="purchase_form" layoutX="80.0" layoutY="48.0" prefHeight="624.0" prefWidth="968.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="12.0" layoutY="12.0" prefHeight="601.0" prefWidth="944.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -302,13 +302,13 @@
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="purchase_bookID" layoutX="115.0" layoutY="18.0" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                          <ComboBox fx:id="purchase_bookID" layoutX="115.0" layoutY="18.0" onAction="#purchaseBookId" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                           <Label layoutX="36.0" layoutY="67.0" text="Book Title:">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="purchase_bookTitle" layoutX="115.0" layoutY="62.0" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                          <ComboBox fx:id="purchase_bookTitle" layoutX="115.0" layoutY="62.0" onAction="#purchaseBookTitle" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                           <Label layoutX="49.0" layoutY="113.0" text="Total:">
                                              <font>
                                                 <Font name="Arial" size="15.0" />
@@ -332,7 +332,7 @@
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="purchase_info_bookID" layoutX="125.0" layoutY="20.0" prefHeight="28.0" prefWidth="176.0" styleClass="info-label" stylesheets="@dashboardDesign.css" text="10000001">
+                                                <Label fx:id="purchase_info_bookID" layoutX="125.0" layoutY="20.0" prefHeight="28.0" prefWidth="176.0" styleClass="info-label" stylesheets="@dashboardDesign.css">
                                                    <font>
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
@@ -342,7 +342,7 @@
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="purchase_info_bookTitle" layoutX="125.0" layoutY="60.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css" text="Book Title">
+                                                <Label fx:id="purchase_info_bookTitle" layoutX="125.0" layoutY="60.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css">
                                                    <font>
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
@@ -352,7 +352,7 @@
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="purchase_info_author" layoutX="125.0" layoutY="97.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css" text="Author">
+                                                <Label fx:id="purchase_info_author" layoutX="125.0" layoutY="97.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css">
                                                    <font>
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
@@ -362,7 +362,7 @@
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="purchase_info_genre" layoutX="125.0" layoutY="134.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css" text="Genre">
+                                                <Label fx:id="purchase_info_genre" layoutX="125.0" layoutY="134.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css">
                                                    <font>
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
@@ -372,7 +372,7 @@
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="purchase_info_date" layoutX="125.0" layoutY="173.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css" text="Pub Date">
+                                                <Label fx:id="purchase_info_date" layoutX="125.0" layoutY="173.0" prefHeight="28.0" prefWidth="296.0" styleClass="info-label" stylesheets="@dashboardDesign.css">
                                                    <font>
                                                       <Font name="Arial" size="15.0" />
                                                    </font>
