@@ -188,6 +188,12 @@ public class dashboardController implements Initializable{
     private Label purchase_info_date;
 
     @FXML
+    private TextField purchase_nameCustomer;
+
+    @FXML
+    private TextField purchase_phone;
+    
+    @FXML
     private Button purchase_payBtn;
 
     @FXML
@@ -220,6 +226,112 @@ public class dashboardController implements Initializable{
     private ResultSet result;
     
     private Image image;
+    
+    public void dashboardAB(){
+        
+        String sql = "SELECT COUNT(id) FROM book";
+        
+        connect = database.connectDb();
+        int countAB = 0;
+        try{
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            if(result.next()){
+                countAB = result.getInt("COUNT(id)");
+            }
+            
+            dashboard_AB.setText(String.valueOf(countAB));
+            
+        }catch(Exception e){e.printStackTrace();}
+    }
+    
+    public void dashboardTI(){
+        
+        String sql = "SELECT SUM(total) FROM customer_info";
+        
+        connect = database.connectDb();
+        double sumTotal = 0;
+        try{
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            if(result.next()){
+                sumTotal = result.getDouble("SUM(total)");
+            }
+            
+            dashboard_TI.setText("$" + String.valueOf(sumTotal));
+            
+        }catch(Exception e){e.printStackTrace();}
+    }
+    
+    public void dashboardTC(){
+        String sql = "SELECT COUNT(id) FROM customer_info";
+        
+        connect = database.connectDb();
+        int countTC = 0;
+        try{
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            if(result.next()){
+                countTC = result.getInt("COUNT(id)");
+            }
+            
+            dashboard_TC.setText(String.valueOf(countTC));
+            
+        }catch(Exception e){e.printStackTrace();}
+        
+    }
+    
+    public void dashboardIncomeChart(){
+        
+        dashboard_incomeChart.getData().clear();
+        
+        String sql = "SELECT date, SUM(total) FROM customer_info GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 6";
+        
+        connect = database.connectDb();
+        
+        try{
+            XYChart.Series chart = new XYChart.Series();
+            
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            while(result.next()){
+                chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+            }
+            
+            dashboard_incomeChart.getData().add(chart);
+            
+        }catch(Exception e){e.printStackTrace();}
+        
+    }
+    
+    
+    public void dashboardCustomerChart(){
+        
+        dashboard_customerChart.getData().clear();
+        
+        String sql = "SELECT date, COUNT(id) FROM customer_info GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 4";
+        
+        connect = database.connectDb();
+        
+        try{
+            XYChart.Series chart = new XYChart.Series();
+            
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            
+            while(result.next()){
+                chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+            }
+            
+            dashboard_customerChart.getData().add(chart);
+            
+        }catch(Exception e){e.printStackTrace();}
+        
+    } 
     
     public void availableBooksAdd(){
         
@@ -527,8 +639,8 @@ public class dashboardController implements Initializable{
     public void purchaseAdd(){
         purchasecustomerId();
         
-        String sql = "INSERT INTO customer (customer_id, book_id, title, author, genre, quantity, price, date) "
-                + "VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO customer (customer_id, book_id, title, author, genre, quantity, price, date, nameCustomer, phone) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         
         connect = database.connectDb();
         
@@ -572,7 +684,8 @@ public class dashboardController implements Initializable{
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
                 prepare.setString(8, String.valueOf(sqlDate));
-
+                prepare.setString(9, purchase_nameCustomer.getText());
+                prepare.setString(10, purchase_phone.getText());
                 prepare.executeUpdate();
                 
                 purchaseDisplayTotal();
@@ -583,8 +696,8 @@ public class dashboardController implements Initializable{
     
     public void purchasePay(){
         
-        String sql = "INSERT INTO customer_info (customer_id, total, date) "
-                + "VALUES(?,?,?)";
+        String sql = "INSERT INTO customer_info (customer_id, customer_name, phone, total, date) "
+                + "VALUES(?,?,?,?,?)";
         
         connect = database.connectDb();
         
@@ -606,12 +719,14 @@ public class dashboardController implements Initializable{
                 if(option.get().equals(ButtonType.OK)){
                     prepare = connect.prepareStatement(sql);
                     prepare.setString(1, String.valueOf(customerId));
-                    prepare.setString(2, String.valueOf(displayTotal));
+                    prepare.setString(2, purchase_nameCustomer.getText());
+                    prepare.setString(3, purchase_phone.getText());
+                    prepare.setString(4, String.valueOf(displayTotal));
 
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-                    prepare.setString(3, String.valueOf(sqlDate));
+                    prepare.setString(5, String.valueOf(sqlDate));
 
                     prepare.executeUpdate();
                     
@@ -757,7 +872,9 @@ public class dashboardController implements Initializable{
                         , result.getString("genre")
                         , result.getInt("quantity")
                         , result.getDouble("price")
-                        , result.getDate("date"));
+                        , result.getDate("date")
+                        , result.getString("nameCustomer")
+                        , result.getString("phone"));
                 
                 listData.add(customerD);
             }
@@ -792,6 +909,17 @@ public class dashboardController implements Initializable{
     public void purhcaseQty(){
         qty = purchase_quantity.getValue();
     }
+    
+    private String nameCustomer;
+    public void purhcaseNameCus(){
+        nameCustomer = purchase_nameCustomer.getText();
+    }
+    
+    private String phone;
+    public void purhcasePhone(){
+        phone = purchase_phone.getText();
+    }
+    
     
     private int customerId;
     public void purchasecustomerId(){
@@ -844,11 +972,11 @@ public class dashboardController implements Initializable{
             availableBooks_btn.setStyle("-fx-background-color: transparent");
             purchase_btn.setStyle("-fx-background-color: transparent");
             
-//           dashboardAB();
-//            dashboardTI();
-//            dashboardTC();
-//            dashboardIncomeChart();
-//            dashboardCustomerChart();
+            dashboardAB();
+            dashboardTI();
+            dashboardTC();
+            dashboardIncomeChart();
+            dashboardCustomerChart();
             
         }else if(event.getSource() == availableBooks_btn){
             dashboard_form.setVisible(false);
@@ -873,9 +1001,9 @@ public class dashboardController implements Initializable{
             
             purchaseBookTitle();
             purchaseBookId();
-//            purchaseShowCustomerListData();
-//            purchaseDisplayQTY();
-//            purchaseDisplayTotal();
+            purchaseShowCustomerListData();
+            purchaseDisplayQTY();
+            purchaseDisplayTotal();
             
         }
     }
@@ -937,12 +1065,12 @@ public class dashboardController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         displayUsername();
         
-//        dashboardAB();
-//        dashboardTI();
-//        dashboardTC();
-//        dashboardIncomeChart();
-//        dashboardCustomerChart();
-//        
+        dashboardAB();
+        dashboardTI();
+        dashboardTC();
+        dashboardIncomeChart();
+        dashboardCustomerChart();
+        
 //        // TO SHOW THE DATA ON TABLEVIEW (AVAILABLE BOOKS)
         availableBooksShowListData();
         

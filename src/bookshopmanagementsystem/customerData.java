@@ -20,9 +20,11 @@ public class customerData {
     private Integer quantity;
     private Double price;
     private Date date;
+    private String customerName;
+    private String phone;
     
     public customerData(Integer customerId, Integer bookId, String title, String author
-            , String genre, Integer quantity, Double price, Date date){
+            , String genre, Integer quantity, Double price, Date date, String customerName, String phone){
         this.customerId = customerId;
         this.bookId = bookId;
         this.title = title;
@@ -31,6 +33,8 @@ public class customerData {
         this.quantity = quantity;
         this.price = price;
         this.date = date;
+        this.customerName = customerName;
+        this.phone = phone;
     }
     public Integer getCustomerId(){
         return customerId;
@@ -56,5 +60,12 @@ public class customerData {
     public Date getDate(){
         return date;
     }
-    
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }

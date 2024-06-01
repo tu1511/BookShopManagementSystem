@@ -185,7 +185,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <AreaChart fx:id="dashboard_imcomeChart" layoutX="-40.0" layoutY="-48.0" prefHeight="386.0" prefWidth="480.0" title="Income Chart Data" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+                                          <AreaChart fx:id="dashboard_incomeChart" layoutX="-40.0" layoutY="-48.0" prefHeight="386.0" prefWidth="480.0" title="Income Chart Data" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                                             <xAxis>
                                               <CategoryAxis side="BOTTOM" />
                                             </xAxis>
@@ -201,7 +201,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <BarChart fx:id="dashboard_customersChart" layoutX="-132.0" layoutY="-39.0" prefHeight="361.0" prefWidth="368.0" title="Customers Chart Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <BarChart fx:id="dashboard_customerChart" layoutX="-132.0" layoutY="-39.0" prefHeight="361.0" prefWidth="368.0" title="Customers Chart Data" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <xAxis>
                                               <CategoryAxis side="BOTTOM" />
                                             </xAxis>
@@ -298,30 +298,30 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <Label layoutX="50.0" layoutY="22.0" text="Book ID:">
+                                          <Label layoutX="75.0" layoutY="18.0" text="Book ID:">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="purchase_bookID" layoutX="115.0" layoutY="18.0" onAction="#purchaseBookId" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                          <Label layoutX="36.0" layoutY="67.0" text="Book Title:">
+                                          <ComboBox fx:id="purchase_bookID" layoutX="140.0" layoutY="14.0" onAction="#purchaseBookId" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                          <Label layoutX="61.0" layoutY="63.0" text="Book Title:">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="purchase_bookTitle" layoutX="115.0" layoutY="62.0" onAction="#purchaseBookTitle" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                          <Label layoutX="269.0" layoutY="171.0" text="Total:">
+                                          <ComboBox fx:id="purchase_bookTitle" layoutX="140.0" layoutY="58.0" onAction="#purchaseBookTitle" prefHeight="30.0" prefWidth="161.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                          <Label layoutX="323.0" layoutY="124.0" text="Total:">
                                              <font>
                                                 <Font name="Arial" size="15.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="purchase_total" layoutX="313.0" layoutY="168.0" prefHeight="23.0" prefWidth="125.0" text="\$0.0">
+                                          <Label fx:id="purchase_total" layoutX="364.0" layoutY="121.0" prefHeight="23.0" prefWidth="117.0" text="\$0.0">
                                              <font>
                                                 <Font name="Arial" size="20.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="purchase_addBtn" layoutX="299.0" layoutY="18.0" mnemonicParsing="false" onAction="#purchaseAdd" prefHeight="45.0" prefWidth="86.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
-                                          <Button fx:id="purchase_payBtn" layoutX="130.0" layoutY="148.0" mnemonicParsing="false" onAction="#purchasePay" prefHeight="39.0" prefWidth="132.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Pay" />
+                                          <Button fx:id="purchase_addBtn" layoutX="321.0" layoutY="17.0" mnemonicParsing="false" onAction="#purchaseAdd" prefHeight="45.0" prefWidth="86.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
+                                          <Button fx:id="purchase_payBtn" layoutX="323.0" layoutY="164.0" mnemonicParsing="false" onAction="#purchasePay" prefHeight="39.0" prefWidth="141.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Pay" />
                                           <AnchorPane layoutX="499.0" layoutY="-1.0" prefHeight="221.0" prefWidth="448.0" stylesheets="@dashboardDesign.css">
                                              <styleClass>
                                                 <String fx:value="nav-form" />
@@ -380,12 +380,24 @@
                                                 </Label>
                                              </children>
                                           </AnchorPane>
-                                          <Label layoutX="41.0" layoutY="111.0" text="Quantity:">
+                                          <Label layoutX="66.0" layoutY="107.0" text="Quantity:">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <Spinner fx:id="purchase_quantity" layoutX="115.0" layoutY="106.0" onMouseClicked="#purhcaseQty" prefHeight="30.0" prefWidth="162.0" />
+                                          <Spinner fx:id="purchase_quantity" layoutX="140.0" layoutY="102.0" onMouseClicked="#purhcaseQty" prefHeight="30.0" prefWidth="162.0" />
+                                          <Label layoutX="21.0" layoutY="151.0" text="Name customer:">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="purchase_nameCustomer" layoutX="140.0" layoutY="146.0" prefHeight="30.0" prefWidth="163.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                          <Label layoutX="80.0" layoutY="188.0" text="Phone:">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="purchase_phone" layoutX="140.0" layoutY="183.0" prefHeight="30.0" prefWidth="163.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                        </children>
                                     </AnchorPane>
                                     <TableView fx:id="purchase_tableView" layoutX="14.0" layoutY="233.0" prefHeight="358.0" prefWidth="920.0">
