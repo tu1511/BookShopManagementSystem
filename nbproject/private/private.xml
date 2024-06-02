@@ -4,12 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/dashboard.fxml</file>
-            <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/FXMLDocumentController.java</file>
-            <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/FXMLDocument.fxml</file>
             <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/customerData.java</file>
             <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/dashboardController.java</file>
             <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/BookShopManagementSystem.java</file>
-            <file>file:/D:/Java/BookShopManagementSystem/src/bookshopmanagementsystem/bookData.java</file>
         </group>
     </open-files>
 </project-private>

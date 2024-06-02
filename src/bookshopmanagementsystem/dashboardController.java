@@ -719,7 +719,8 @@ public class dashboardController implements Initializable{
                 if(option.get().equals(ButtonType.OK)){
                     prepare = connect.prepareStatement(sql);
                     prepare.setString(1, String.valueOf(customerId));
-                    prepare.setString(2, purchase_nameCustomer.getText());
+                    prepare.setString(2, String.valueOf(nameCustomer));
+                    System.out.println("hehe: "+ nameCustomer);
                     prepare.setString(3, purchase_phone.getText());
                     prepare.setString(4, String.valueOf(displayTotal));
 
@@ -910,50 +911,60 @@ public class dashboardController implements Initializable{
         qty = purchase_quantity.getValue();
     }
     
-    private String nameCustomer;
-    public void purhcaseNameCus(){
-        nameCustomer = purchase_nameCustomer.getText();
-    }
-    
     private String phone;
     public void purhcasePhone(){
         phone = purchase_phone.getText();
     }
     
-    
+    private String nameCustomer;
     private int customerId;
     public void purchasecustomerId(){
-        
-        String sql = "SELECT MAX(customer_id) FROM customer";
-        int checkCID = 0 ;
-        connect = database.connectDb();
-        
-        try{
-            prepare = connect.prepareStatement(sql);
+        String sqlMaxCustomerId = "SELECT MAX(customer_id) AS max_id FROM customer";
+        String sqlCheckCustomerInfo = "SELECT MAX(customer_id) AS max_id FROM customer_info";
+        String sqlGetName = "SELECT nameCustomer FROM customer WHERE customer_id = ?";
+        int checkCID = 0;
+
+        try {
+            connect = database.connectDb();
+
+            // Lấy customer_id cao nhất từ bảng customer
+            prepare = connect.prepareStatement(sqlMaxCustomerId);
             result = prepare.executeQuery();
-            
-            if(result.next()){
-                customerId = result.getInt("MAX(customer_id)");
+
+            if (result.next()) {
+                customerId = result.getInt("max_id");
             }
-            
-            String checkData = "SELECT MAX(customer_id) FROM customer_info";
-            
-            prepare = connect.prepareStatement(checkData);
+
+            // Lấy customer_id cao nhất từ bảng customer_info
+            prepare = connect.prepareStatement(sqlCheckCustomerInfo);
             result = prepare.executeQuery();
-            
-            if(result.next()){
-                checkCID = result.getInt("MAX(customer_id)");
+
+            if (result.next()) {
+                checkCID = result.getInt("max_id");
             }
-            
-            if(customerId == 0){
+
+            // Xác định customerId mới
+            if (customerId == 0) {
                 customerId += 1;
-            }else if(checkCID == customerId){
+            } else if (checkCID == customerId) {
                 customerId = checkCID + 1;
             }
+
+            // Lấy nameCustomer từ bảng customer dựa trên customer_id tìm được
+            prepare = connect.prepareStatement(sqlGetName);
+            prepare.setInt(1, customerId);
+            result = prepare.executeQuery();
+
+            if (result.next()) {
+                nameCustomer = result.getString("nameCustomer");
+            }
             
-        }catch(Exception e){e.printStackTrace();}
-        
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    
     
     public void displayUsername(){
         String user = getData.username;
